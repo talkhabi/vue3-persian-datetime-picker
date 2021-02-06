@@ -1,0 +1,90 @@
+{
+  "name": "vue3-persian-datetime-picker",
+  "description": "A vue plugin to select jalali date and time",
+  "version": "0.1.0",
+  "author": "Mohammad Talkhabi",
+  "license": "MIT",
+  "main": "dist/vue3-persian-datetime-picker.js",
+  "keywords": [
+    "vuejs",
+    "persian",
+    "jalali",
+    "datepicker",
+    "timepicker",
+    "datetime picker",
+    "vue datepicker",
+    "persian datepicker",
+    "jalali datepicker",
+    "shamsi datepicker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/talkhabi/vue3-persian-datetime-picker"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "moment-jalaali": "^0.9.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "@vue/compiler-sfc": "^3.0.5",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "core-js": "^3.8.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.5.0",
+    "node-sass": "^4.14.1",
+    "prettier": "^1.19.1",
+    "sass-loader": "^8.0.2",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.3"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "plugin:vue/vue3-strongly-recommended",
+      "plugin:vue/vue3-recommended",
+      "@vue/prettier"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {
+      "vue/html-self-closing": [
+        "warn",
+        {
+          "html": {
+            "void": "always",
+            "normal": "always",
+            "component": "always"
+          },
+          "svg": "always",
+          "math": "always"
+        }
+      ]
+    }
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "endOfLine": "lf",
+    "tabWidth": 2
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
