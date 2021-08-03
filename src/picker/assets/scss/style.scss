@@ -197,7 +197,7 @@
     text-align: center;
   }
 
-  &[disabled] {
+  &[disabled='true'] {
     cursor: default;
     color: darken(#ffffff, 20%);
 
@@ -210,7 +210,7 @@
     }
   }
 
-  &:not([disabled]) {
+  &:not([disabled='true']) {
     &:hover {
       color: #ffffff;
 
@@ -278,7 +278,7 @@
     outline: none;
     cursor: pointer;
 
-    &[disabled] {
+    &[disabled='true'] {
       opacity: 0.3;
       cursor: default;
     }
@@ -365,7 +365,7 @@
       background-color: darken(#ffffff, 5%);
     }
 
-    &[disabled] {
+    &[disabled='true'] {
       opacity: 0.6;
       cursor: default;
     }
@@ -425,7 +425,7 @@
   }
 }
 
-.#{$prefix}addon-list-item[disabled] {
+.#{$prefix}addon-list-item[disabled='true'] {
   opacity: 0.3;
   cursor: default !important;
   background-color: transparent !important;
