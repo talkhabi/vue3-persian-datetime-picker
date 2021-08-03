@@ -26,7 +26,7 @@
         @keydown.enter.prevent="onInputSubmit"
       />
       <div
-        v-for="(item, i) in value.toString().split('')"
+        v-for="(item, i) in modelValue.toString().split('')"
         :key="`h__${i}`"
         class="vpd-counter-item"
         v-bind="attributes"
@@ -66,6 +66,7 @@ export default {
     formatter: { type: Function, default: null },
     attributes: { type: Object, default: () => ({}) }
   },
+  emits: ['filled'],
   data() {
     return {
       directionClass: 'direction-next',
@@ -83,8 +84,8 @@ export default {
         if (old) this.setDirection(val, old)
         this.inputValue = this.selfValue
         this.$nextTick(() => {
-          if (this.value.toString() !== this.selfValue.toString())
-            this.selfValue = this.value
+          if (this.modelValue.toString() !== this.selfValue.toString())
+            this.selfValue = this.modelValue
         })
       },
       immediate: true
@@ -123,6 +124,7 @@ export default {
       this.classFastCounter = e ? 'fast-updating' : ''
     },
     setDirection(val, old) {
+      if (val * 1 === old * 1) return
       this.directionClass = val > old ? 'direction-next' : 'direction-prev'
     },
     onInputSubmit() {

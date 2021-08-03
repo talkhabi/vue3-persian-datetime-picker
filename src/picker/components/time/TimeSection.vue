@@ -42,6 +42,7 @@ export default {
     selectedDates: { type: Array, default: () => [] },
     convertToLocaleNumber: { type: Function, default: null }
   },
+  emits: ['update:date', 'update:time'],
   computed: {
     timeAttributes() {
       return this.getHighlights('t', this.time)
