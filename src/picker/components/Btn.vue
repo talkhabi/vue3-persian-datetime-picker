@@ -5,6 +5,7 @@
 <script>
 export default {
   name: 'Btn',
+  emits: ['update', 'fastUpdate'],
   data() {
     return {
       interval: false,
@@ -12,7 +13,6 @@ export default {
       intervalDelay: 150
     }
   },
-  computed: {},
   mounted() {
     document.addEventListener('mouseup', () => {
       if (this.timeout || this.interval) this.up()

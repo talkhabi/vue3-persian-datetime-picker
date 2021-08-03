@@ -12,6 +12,7 @@ export default {
     core: { type: Object, default: () => ({}) },
     localeData: { type: Object, default: () => ({}) }
   },
+  emits: ['change'],
   computed: {
     activeItem() {
       let activeIndex = this.locales.indexOf(this.localeData.name) + 1
