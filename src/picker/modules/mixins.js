@@ -4,20 +4,17 @@ import { clone } from './utils'
  * Model Mixin
  */
 export const modelMixin = {
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props: {
-    value: { type: [String, Number, Array, Object, Boolean], default: '' }
+    modelValue: { type: [String, Number, Array, Object, Boolean], default: '' }
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       selfValue: ''
     }
   },
   watch: {
-    value: {
+    modelValue: {
       handler(val) {
         if (this.selfValue !== val) this.selfValue = val
       },
@@ -25,7 +22,7 @@ export const modelMixin = {
       deep: true
     },
     selfValue(val) {
-      if (val !== this.value) this.$emit('input', val)
+      if (val !== this.modelValue) this.$emit('update:modelValue', val)
     }
   }
 }
