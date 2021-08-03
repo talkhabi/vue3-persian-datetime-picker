@@ -315,8 +315,8 @@
                   v-if="hasStep('t')"
                   v-show="currentStep === 't'"
                   ref="time"
-                  :date.sync="date"
-                  :time.sync="time"
+                  v-model:date="date"
+                  v-model:time="time"
                   :is-more="isMore"
                   :is-lower="isLower"
                   :min-date="minDate"
@@ -404,10 +404,6 @@ import { cloneDates, isSameDay } from './modules/utils'
 export default {
   components: { TimeSection, LocaleChange, Arrow, CalendarIcon, TimeIcon },
   mixins: [popupRouteChanger],
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
   props: {
     /**
      * Default input value
@@ -415,7 +411,7 @@ export default {
      * @default []
      * @example 1396/08/01 22:45 | 2017/07/07 20:45 | {unix} | 20:45
      */
-    value: { type: [Number, String, Date, Array], default: '' },
+    modelValue: { type: [Number, String, Date, Array], default: '' },
 
     /**
      * Initial value of picker (if value is empty)
@@ -781,6 +777,7 @@ export default {
      */
     useRouter: { type: [Boolean, String], default: false }
   },
+  emits: ['localeChange', 'update:modelValue', 'change', 'open', 'close'],
   data() {
     let defaultLocale = this.locale.split(',')[0]
     let coreModule = new CoreModule(defaultLocale, this.localeConfig)
@@ -1026,7 +1023,7 @@ export default {
     outputValue() {
       let output = cloneDates(this.output)
       let format = this.selfFormat
-      let isDate = this.value instanceof Date || this.format === 'date'
+      let isDate = this.modelValue instanceof Date || this.format === 'date'
       return output.map(item => {
         ;/j\w/.test(format) && item.locale('fa')
         this.setTimezone(item, 'out')
@@ -1200,7 +1197,7 @@ export default {
     window.addEventListener('resize', this.onWindowResize, true)
     window.addEventListener('mousedown', this.onWindowClick, true)
   },
-  beforeDestroy() {
+  onBeforeUnmount() {
     window.clearInterval(this.updateNowInterval)
     window.removeEventListener('resize', this.onWindowResize, true)
     window.removeEventListener('mousedown', this.onWindowClick, true)
@@ -1320,10 +1317,10 @@ export default {
       if (close) this.visible = false
 
       if (this.isDataArray) {
-        this.$emit('input', this.outputValue)
+        this.$emit('update:modelValue', this.outputValue)
         this.$emit('change', cloneDates(selected))
       } else {
-        this.$emit('input', this.outputValue[0])
+        this.$emit('update:modelValue', this.outputValue[0])
         this.$emit('change', selected[0].clone())
       }
     },
@@ -1338,7 +1335,9 @@ export default {
       const getDate = (input, index = 0) => {
         let date
         let startValue =
-          this.value instanceof Array ? this.value[index] : this.value
+          this.modelValue instanceof Array
+            ? this.modelValue[index]
+            : this.modelValue
         try {
           let isObject = typeof input === 'object'
           if (input instanceof Date) {
@@ -1374,11 +1373,14 @@ export default {
       if (!payloadIsArray) this.selectedDates = [this.date.clone()]
       this.time = this.date.clone()
 
-      if (this.value !== '' && this.value !== null && this.value.length) {
+      if (
+        this.modelValue !== '' &&
+        this.modelValue !== null &&
+        this.modelValue.length
+      ) {
         this.output = cloneDates(this.selectedDates)
       } else {
         this.output = []
-        this.$forceUpdate()
       }
     },
     goToday() {
@@ -1509,8 +1511,7 @@ export default {
         this.updateDates(cloneDates(this.output))
         this.submit()
       } else {
-        this.$forceUpdate()
-        this.$emit('input', this.isDataArray ? [] : null)
+        this.$emit('update:modelValue', this.isDataArray ? [] : null)
         this.$emit('change', this.isDataArray ? [] : null)
       }
     },
@@ -1603,14 +1604,13 @@ export default {
     clearValue() {
       if (this.disabled) return
       this.output = []
-      this.$emit('input', this.isDataArray ? [] : '')
+      this.$emit('update:modelValue', this.isDataArray ? [] : '')
       this.$emit('change', this.isDataArray ? [] : null)
     },
     setLocale(locale) {
       this.core.changeLocale(locale, this.localeConfig)
       this.date = this.date.clone()
       this.selectedDates = this.selectedDates.map(d => d.clone())
-      this.$forceUpdate()
     },
     setTimezone(date, mode) {
       let tz = this.timezone
