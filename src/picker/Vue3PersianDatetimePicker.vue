@@ -402,6 +402,7 @@ import { popupRouteChanger } from './modules/mixins'
 import { cloneDates, isSameDay } from './modules/utils'
 
 export default {
+  name: 'Vue3PersianDatetimePicker',
   components: { TimeSection, LocaleChange, Arrow, CalendarIcon, TimeIcon },
   mixins: [popupRouteChanger],
   props: {
