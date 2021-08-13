@@ -13,6 +13,7 @@
     "timepicker",
     "datetime picker",
     "vue datepicker",
+    "vue3 datepicker",
     "persian datepicker",
     "jalali datepicker",
     "shamsi datepicker"
@@ -24,7 +25,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "buildAll": "npm run export-common & npm run export-umd",
+    "export-common": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename vue3-persian-datetime-picker src/picker/Vue3PersianDatetimePicker.vue --formats commonjs --no-clean",
+    "export-umd": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename vue3-persian-datetime-picker src/picker/Vue3PersianDatetimePicker.vue --formats umd,umd-min --no-clean"
   },
   "dependencies": {
     "moment-jalaali": "^0.9.2"
