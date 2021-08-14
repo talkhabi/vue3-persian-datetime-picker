@@ -43,7 +43,7 @@ const tools = {
  * jQuery extend function
  * https://gist.github.com/bentsai/3150936
  */
-const extend = function() {
+export const extend = function() {
   var options,
     name,
     src,

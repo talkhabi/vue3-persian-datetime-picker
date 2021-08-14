@@ -399,7 +399,7 @@ import TimeSection from './components/time/TimeSection'
 
 import CoreModule from './modules/core'
 import { popupRouteChanger } from './modules/mixins'
-import { cloneDates, isSameDay } from './modules/utils'
+import { cloneDates, extend, isSameDay } from './modules/utils'
 
 export default {
   name: 'Vue3PersianDatetimePicker',
@@ -1691,7 +1691,7 @@ export default {
   },
   install(Vue, options) {
     let component = this
-    options = Vue.util.extend(
+    options = extend(
       {
         name: 'data-picker',
         props: {}
