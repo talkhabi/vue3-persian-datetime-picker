@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "Mohammad Talkhabi",
   "license": "MIT",
-  "main": "dist/vue3-persian-datetime-picker.js",
+  "main": "dist/vue3-persian-datetime-picker.common.js",
   "keywords": [
     "vuejs",
     "persian",
