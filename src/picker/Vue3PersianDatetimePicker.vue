@@ -778,7 +778,17 @@ export default {
      */
     useRouter: { type: [Boolean, String], default: false }
   },
-  emits: ['localeChange', 'update:modelValue', 'change', 'open', 'close'],
+  emits: [
+    'update:modelValue',
+    'locale-change',
+    'change',
+    'open',
+    'close',
+    'year-change',
+    'month-change',
+    'next-month',
+    'prev-month'
+  ],
   data() {
     let defaultLocale = this.locale.split(',')[0]
     let coreModule = new CoreModule(defaultLocale, this.localeConfig)
@@ -1163,7 +1173,7 @@ export default {
       }
     },
     'localeData.name'() {
-      this.$emit('localeChange', this.localeData)
+      this.$emit('locale-change', this.localeData)
       this.setMinMax()
     }
   },
@@ -1288,6 +1298,7 @@ export default {
       if (year.disabled) return
       this.date = this.date.clone().xYear(year.xYear())
       this.selectedDates = [this.date.clone()]
+      this.$emit('year-change', year)
       this.nextStep()
     },
     selectMonth(month) {
