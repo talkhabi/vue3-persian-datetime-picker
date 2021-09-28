@@ -778,7 +778,17 @@ export default {
      */
     useRouter: { type: [Boolean, String], default: false }
   },
-  emits: ['localeChange', 'update:modelValue', 'change', 'open', 'close'],
+  emits: [
+    'update:modelValue',
+    'locale-change',
+    'change',
+    'open',
+    'close',
+    'year-change',
+    'month-change',
+    'next-month',
+    'prev-month'
+  ],
   data() {
     let defaultLocale = this.locale.split(',')[0]
     let coreModule = new CoreModule(defaultLocale, this.localeConfig)
@@ -1163,7 +1173,7 @@ export default {
       }
     },
     'localeData.name'() {
-      this.$emit('localeChange', this.localeData)
+      this.$emit('locale-change', this.localeData)
       this.setMinMax()
     }
   },
@@ -1246,9 +1256,11 @@ export default {
     },
     nextMonth() {
       this.date = this.date.clone().xAdd(1, 'month')
+      this.$emit('next-month', this.date.clone())
     },
     prevMonth() {
       this.date = this.date.clone().xAdd(-1, 'month')
+      this.$emit('prev-month', this.date.clone())
     },
     selectDay(day) {
       if (!day.date || day.disabled) return
@@ -1286,12 +1298,14 @@ export default {
       if (year.disabled) return
       this.date = this.date.clone().xYear(year.xYear())
       this.selectedDates = [this.date.clone()]
+      this.$emit('year-change', year)
       this.nextStep()
     },
     selectMonth(month) {
       if (month.disabled) return
       this.date = this.date.clone().xMonth(month.xMonth())
       this.selectedDates = [this.date.clone()]
+      this.$emit('month-change', month)
       this.nextStep()
     },
     submit(close = true) {
