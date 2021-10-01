@@ -141,6 +141,13 @@ This project is licensed under the MIT License
 
 ## Change log
 
-### 1.0.0 (2021-08-14)
+### 1.1.0 (2021-10-01)
+ * Feat: [Added simple-mode](https://talkhabi.github.io/vue-persian-datetime-picker/#/simple-mode)
+ * Feat: [Added `input-attrs`](https://github.com/talkhabi/vue-persian-datetime-picker/issues/170)
+ * Feat: [Added `@next-month` and `@prev-month` events](https://github.com/talkhabi/vue-persian-datetime-picker/issues/176)
+ * Feat: Added `@year-change` and `@month-change` events
+ * Fix: [Mouse wheel in Firefox](https://github.com/talkhabi/vue-persian-datetime-picker/issues/174)
+ * Fix: Prevent selected dates from being reset
 
+### 1.0.0 (2021-08-14)
   * Migrated to Vue3
