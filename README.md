@@ -49,6 +49,25 @@ module.exports = {
 }
 ```
 
+vitejs configuration:
+```javascript
+// vite.config.js
+// ...
+export default defineConfig({
+  // ...
+  resolve: {
+    mainFields: [
+      'browser',
+      'module',
+      'main',
+      'jsnext:main',
+      'jsnext'
+    ]
+  }
+})
+```
+
+
 ### Usage
 ```javascript
 // main.js
