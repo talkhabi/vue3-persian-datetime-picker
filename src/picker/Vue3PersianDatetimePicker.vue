@@ -33,6 +33,7 @@
         :placeholder="placeholder"
         :value="displayValue"
         :disabled="disabled"
+        v-bind="inputAttrs"
         @focus="focus"
         @blur="setOutput"
         @keydown.enter="setOutput"
@@ -846,7 +847,16 @@ export default {
      * @default false
      * @example <date-picker simple />
      */
-    simple: { type: Boolean, default: false }
+    simple: { type: Boolean, default: false },
+
+    /**
+     * Additional attributes for input element
+     * @type Object
+     * @default null
+     * @example <date-picker :input-attrs="{ foo: 'bar' }" />
+     * @version 2.9.0
+     */
+    inputAttrs: { type: Object, default: null }
   },
   emits: [
     'update:modelValue',
