@@ -22,6 +22,11 @@
     "type": "git",
     "url": "https://github.com/talkhabi/vue3-persian-datetime-picker"
   },
+  "files": [
+    "src",
+    "dist/*.js",
+    "index.d.ts"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
