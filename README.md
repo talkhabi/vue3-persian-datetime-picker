@@ -13,7 +13,7 @@ If you are using vuejs 2, please refer to [this repository](https://talkhabi.git
 ```html
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.2/build/moment-jalaali.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment-jalaali@0.9.4/build/moment-jalaali.js"></script>
 <script src="/dist/vue3-persian-datetime-picker.umd.min.js"></script>
 <div id="app">
   <date-picker v-model="date"></date-picker>
@@ -140,6 +140,10 @@ This project is licensed under the MIT License
 
 
 ## Change log
+
+### 1.2.1 (2022-02-09)
+ * Fixed: [Moment jalali localeData is not a function](https://github.com/talkhabi/vue3-persian-datetime-picker/pull/5)
+ * Fixed: [Watch model value](https://github.com/talkhabi/vue3-persian-datetime-picker/pull/8)
 
 ### 1.2.0 (2021-11-04)
  * Feat: Added support for display format when using [`custom-input`](https://talkhabi.github.io/vue-persian-datetime-picker/guide/custom-input.html)
