@@ -141,6 +141,10 @@ This project is licensed under the MIT License
 
 ## Change log
 
+### 1.2.1 (2022-02-09)
+ * Fixed: [Moment jalali localeData is not a function](https://github.com/talkhabi/vue3-persian-datetime-picker/pull/5)
+ * Fixed: [Watch model value](https://github.com/talkhabi/vue3-persian-datetime-picker/pull/8)
+
 ### 1.2.0 (2021-11-04)
  * Feat: Added support for display format when using [`custom-input`](https://talkhabi.github.io/vue-persian-datetime-picker/guide/custom-input.html)
  * Fixed: [Using jumpMinute and roundMinute together](https://github.com/talkhabi/vue-persian-datetime-picker/issues/182)
