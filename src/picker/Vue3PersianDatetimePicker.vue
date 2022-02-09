@@ -1205,6 +1205,7 @@ export default {
     type: { handler: 'setType', immediate: true },
     view: { handler: 'setView', immediate: true },
     value: { handler: 'updateDates', immediate: true },
+    modelValue: { handler: 'updateDates', immediate: true },
     min: { handler: 'setMinMax', immediate: true },
     max: { handler: 'setMinMax', immediate: true },
     timezone: { handler: 'updateDates' },
