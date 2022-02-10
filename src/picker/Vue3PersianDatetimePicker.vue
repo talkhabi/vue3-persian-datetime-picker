@@ -1204,7 +1204,6 @@ export default {
   watch: {
     type: { handler: 'setType', immediate: true },
     view: { handler: 'setView', immediate: true },
-    value: { handler: 'updateDates', immediate: true },
     modelValue: { handler: 'updateDates', immediate: true },
     min: { handler: 'setMinMax', immediate: true },
     max: { handler: 'setMinMax', immediate: true },
@@ -1456,7 +1455,7 @@ export default {
       }
     },
     updateDates(payload) {
-      if (this.isDataArray && !payload) payload = []
+      if (!payload) payload = this.isDataArray ? [] : ''
 
       // fix: don't update dates if they are already up to date
       if (this.date.clone && payload.toString() === this.outputValue.toString())
