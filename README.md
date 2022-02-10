@@ -141,6 +141,9 @@ This project is licensed under the MIT License
 
 ## Change log
 
+### 1.2.2 (2022-02-10)
+ * Fixed: "value" is no longer needed.
+
 ### 1.2.1 (2022-02-09)
  * Fixed: [Moment jalali localeData is not a function](https://github.com/talkhabi/vue3-persian-datetime-picker/pull/5)
  * Fixed: [Watch model value](https://github.com/talkhabi/vue3-persian-datetime-picker/pull/8)
