@@ -624,7 +624,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/picker/Vue3PersianDatetimePicker.vue?vue&type=template&id=45a4fd3f
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader-v16/dist??ref--0-1!./src/picker/Vue3PersianDatetimePicker.vue?vue&type=template&id=17de564e
 
 
 var _hoisted_1 = /*#__PURE__*/Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createTextVNode"])("x");
@@ -1174,7 +1174,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 3
   }, 8, ["name"])], 10, ["data-type", "data-placement", "data-locale", "data-locale-dir"]);
 }
-// CONCATENATED MODULE: ./src/picker/Vue3PersianDatetimePicker.vue?vue&type=template&id=45a4fd3f
+// CONCATENATED MODULE: ./src/picker/Vue3PersianDatetimePicker.vue?vue&type=template&id=17de564e
 
 // EXTERNAL MODULE: ./src/picker/assets/scss/style.scss
 var style = __webpack_require__("4635");
@@ -3745,10 +3745,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       handler: 'setView',
       immediate: true
     },
-    value: {
-      handler: 'updateDates',
-      immediate: true
-    },
     modelValue: {
       handler: 'updateDates',
       immediate: true
@@ -4037,7 +4033,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     updateDates: function updateDates(payload) {
       var _this13 = this;
 
-      if (this.isDataArray && !payload) payload = []; // fix: don't update dates if they are already up to date
+      if (!payload) payload = this.isDataArray ? [] : ''; // fix: don't update dates if they are already up to date
 
       if (this.date.clone && payload.toString() === this.outputValue.toString()) return;
       var payloadIsArray = payload instanceof Array;
