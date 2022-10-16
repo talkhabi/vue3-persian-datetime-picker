@@ -1,33 +1,32 @@
 /*global getYear*/
 /*eslint no-undef: ["error", { "typeof": true }] */
 
-import momentBase from 'moment'
-import moment from 'moment-jalaali'
-import fa from './moment.locale.fa'
+import dayjs from 'dayjs'
 import utils from './utils'
+import fa from './moment.locale.fa'
+import updateLocale from 'dayjs/plugin/updateLocale'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import localeData from 'dayjs/plugin/localeData'
 
-moment.updateLocale('en', {
+dayjs.extend(updateLocale)
+dayjs.extend(relativeTime)
+dayjs.extend(localeData)
+dayjs.updateLocale('en', {
   weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 })
-moment.updateLocale('fa', fa)
-moment.loadPersian({ dialect: 'persian-modern' })
-moment.daysInMonth = function(year, month) {
-  return moment({ year, month }).daysInMonth()
-}
+dayjs.updateLocale('fa', fa)
 
 //=====================================
 //           CONFIG
 //=====================================
 const localMethods = {
   fa: {
-    daysInMonth: 'jDaysInMonth',
-    year: 'jYear',
-    month: 'jMonth',
-    date: 'jDate',
+    year: 'year',
+    month: 'month',
+    date: 'date',
     day: 'day'
   },
   en: {
-    daysInMonth: 'daysInMonth',
     year: 'year',
     month: 'month',
     date: 'date',
@@ -73,8 +72,8 @@ const Core = function(defaultLocaleName, defaultOptions) {
   'use strict'
 
   const Instance = {
-    moment: moment,
-    momentBase: momentBase,
+    moment: dayjs,
+    momentBase: dayjs,
     locale: { name: 'fa', config: {} },
     localesConfig: {},
     setLocalesConfig: null,
@@ -87,7 +86,6 @@ const Core = function(defaultLocaleName, defaultOptions) {
   //=====================================
   //           METHODS
   //=====================================
-  let xDaysInMonth
 
   Instance.changeLocale = function changeLocale(
     localeName = 'fa',
@@ -95,7 +93,6 @@ const Core = function(defaultLocaleName, defaultOptions) {
   ) {
     let locale = this.locale
     let config = utils.clone(localesConfig[localeName] || localesConfig.en)
-    let methods = localMethods[localeName] || localMethods.en
 
     options = options[localeName] || {}
     if (!localesConfig[localeName])
@@ -103,41 +100,9 @@ const Core = function(defaultLocaleName, defaultOptions) {
     locale.name = localeName
     locale.config = utils.extend(true, config, options)
 
-    xDaysInMonth = moment[methods.daysInMonth]
-
-    function addMethods(date) {
-      if (date === undefined) return
-
-      const nameInLocale = name => {
-        if (locale.name !== 'fa') name = name.replace(/j/g, '')
-        return name
-      }
-
-      date.xYear = moment.fn[methods.year]
-      date.xMonth = moment.fn[methods.month]
-      date.xDate = moment.fn[methods.date]
-
-      date.xFormat = function(format) {
-        return this.format(nameInLocale(format))
-      }
-      date.xStartOf = function(value) {
-        return this.startOf(methods[value])
-      }
-      date.xEndOf = function(value) {
-        return this.endOf(methods[value])
-      }
-      date.xAdd = function(amount, key) {
-        return this.add(amount, methods[key])
-      }
-      date.clone = function() {
-        return Instance.moment(this.toDate())
-      }
-    }
-
     this.moment = function() {
-      let date = moment.apply(null, arguments)
+      let date = dayjs.apply(null, arguments)
       date.locale(locale.name)
-      addMethods(date)
       return date
     }
   }
@@ -168,13 +133,13 @@ const Core = function(defaultLocaleName, defaultOptions) {
       weekArray.push(week)
     }
 
-    date.set({ h: 12, m: 0 })
-    let daysInMonth = xDaysInMonth(date.xYear(), date.xMonth())
-    let day = date.clone().xDate(1)
+    date.set('hour', 12).set('minute', 0)
+    let daysInMonth = date.daysInMonth()
+    let day = date.clone().date(1)
     let dayArray = [day.toDate()]
 
     for (let i = 2; i <= daysInMonth; i++) {
-      dayArray.push(day.xAdd(1, 'day').toDate())
+      dayArray.push(day.add(1, 'day').toDate())
     }
 
     let weekArray = []
@@ -211,13 +176,13 @@ const Core = function(defaultLocaleName, defaultOptions) {
 
   Instance.getMonthsList = function getMonthsList(minDate, maxDate, date) {
     let list = [],
-      min = minDate ? minDate.clone().xStartOf('month') : -Infinity,
-      max = maxDate ? maxDate.clone().xEndOf('month') : Infinity
+      min = minDate ? minDate.clone().startOf('month') : -Infinity,
+      max = maxDate ? maxDate.clone().endOf('month') : Infinity
     for (let i = 0; i < 12; i++) {
-      let month = date.clone().xMonth(i)
-      let start = month.clone().xStartOf('month')
+      let month = date.clone().month(i)
+      let start = month.clone().startOf('month')
 
-      let end = month.clone().xEndOf('month')
+      let end = month.clone().endOf('month')
 
       month.disabled = start < min || end > max
       list.push(month)

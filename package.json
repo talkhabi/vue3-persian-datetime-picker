@@ -36,6 +36,7 @@
     "export-umd": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename vue3-persian-datetime-picker src/picker/Vue3PersianDatetimePicker.vue --formats umd,umd-min --no-clean"
   },
   "dependencies": {
+    "dayjs": "^1.11.5",
     "moment-jalaali": "^0.9.4"
   },
   "devDependencies": {

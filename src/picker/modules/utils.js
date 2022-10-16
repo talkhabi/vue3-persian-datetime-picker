@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 let toString = Object.prototype.toString,
   hasOwnProperty = Object.prototype.hasOwnProperty
 const tools = {
@@ -116,7 +118,7 @@ export const extend = function() {
 }
 
 /**
- * Simple helper for clone an Array of dates (in moment)
+ * Simple helper for clone an Array of dates (in dayjs)
  * @param arr Array
  * @returns Array
  */
@@ -124,13 +126,12 @@ export const cloneDates = arr => arr.map(d => d.clone())
 
 /**
  * Check if two dates are on the same day
- * @param a Moment date
- * @param b Moment date
+ * @param a Dayjs date
+ * @param b Dayjs date
  * @returns {boolean}
  */
 export const isSameDay = (a, b) => {
-  a = a.clone().set({ h: 12, m: 0 })
-  return Math.abs(a.diff(b, 'hours')) < 20
+  return dayjs(a).isSame(dayjs(b), 'day')
 }
 
 /**

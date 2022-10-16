@@ -51,7 +51,7 @@
           @click="$emit('select-year', year)"
         >
           <slot name="year-item" v-bind="{ vm, year, color }">
-            {{ convertToLocaleNumber(year.xFormat('jYYYY')) }}
+            {{ convertToLocaleNumber(year.format('jYYYY')) }}
           </slot>
         </div>
       </simple-mode-column>
@@ -79,7 +79,7 @@
           @click="$emit('select-month', month)"
         >
           <slot name="month-item" v-bind="{ vm, monthItem: month, color }">
-            {{ month.xFormat('jMMMM') }}
+            {{ month.format('jMMMM') }}
           </slot>
         </div>
       </simple-mode-column>
@@ -168,11 +168,11 @@ export default {
     },
     selectedYear() {
       let year = this.years.find(year => year.selected)
-      return year ? year.xFormat('YYYY') : ''
+      return year ? year.format('YYYY') : ''
     },
     selectedMonth() {
       let month = this.months.find(month => month.selected)
-      return month ? month.xFormat('MM') : ''
+      return month ? month.format('MM') : ''
     },
     selectedDay() {
       let day = this.days.find(day => day.selected) || {}

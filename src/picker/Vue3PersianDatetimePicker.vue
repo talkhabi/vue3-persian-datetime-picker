@@ -91,9 +91,9 @@
                 @click="goStep('y')"
               >
                 <transition name="slideY">
-                  <span :key="selectedDate.xYear()">
+                  <span :key="selectedDate.year()">
                     <slot name="header-year" v-bind="{ vm, selectedDate }">
-                      {{ convertToLocaleNumber(selectedDate.xYear()) }}
+                      {{ convertToLocaleNumber(selectedDate.year()) }}
                     </slot>
                   </span>
                 </transition>
@@ -199,7 +199,7 @@
                     </button>
                     <transition name="slideX">
                       <div
-                        :key="date.xMonth()"
+                        :key="date.month()"
                         class="vpd-month-label"
                         @click="goStep('m')"
                       >
@@ -207,7 +207,7 @@
                           <span
                             :style="{ 'border-color': color, color }"
                             v-text="
-                              convertToLocaleNumber(date.xFormat('jMMMM jYYYY'))
+                              convertToLocaleNumber(date.format('jMMMM jYYYY'))
                             "
                           />
                         </slot>
@@ -235,7 +235,7 @@
                       @mouseleave="hoveredItem = null"
                     >
                       <transition name="slideX" :class="directionClassDate">
-                        <div :key="date.xMonth()">
+                        <div :key="date.month()">
                           <div
                             v-for="(m, mi) in monthDays"
                             :key="mi"
@@ -316,7 +316,7 @@
                         @click="selectYear(year)"
                       >
                         <slot name="year-item" v-bind="{ vm, year, color }">
-                          {{ convertToLocaleNumber(year.xFormat('jYYYY')) }}
+                          {{ convertToLocaleNumber(year.format('jYYYY')) }}
                         </slot>
                       </div>
                     </div>
@@ -354,7 +354,7 @@
                           name="month-item"
                           v-bind="{ vm, monthItem, color }"
                         >
-                          {{ monthItem.xFormat('jMMMM') }}
+                          {{ monthItem.format('jMMMM') }}
                         </slot>
                       </div>
                     </div>
@@ -941,7 +941,7 @@ export default {
       if (!format) return ''
 
       let separator = this.multiple ? ' | ' : ' ~ '
-      return this.selectedDates.map(d => d.xFormat(format)).join(separator)
+      return this.selectedDates.map(d => d.format(format)).join(separator)
     },
     month() {
       if (!this.hasStep('d')) return []
@@ -958,7 +958,7 @@ export default {
           }
           if (!day) return data
           let dayMoment = this.core.moment(day)
-          data.formatted = dayMoment.xDate()
+          data.formatted = dayMoment.date()
           data.selected = this.selectedDates.find(item => isSameDay(item, day))
           data.disabled =
             (this.minDate && dayMoment.clone().startOf('day') < min) ||
@@ -999,12 +999,12 @@ export default {
       let moment = this.core.moment
       let min = this.minDate ? this.minDate : moment('1300', 'jYYYY')
       let max = this.maxDate ? this.maxDate : min.clone().add(150, 'year')
-      let cy = this.date.xYear()
+      let cy = this.date.year()
       return this.core
-        .getYearsList(min.xYear(), max.xYear())
+        .getYearsList(min.year(), max.year())
         .reverse()
         .map(item => {
-          let year = moment().xYear(item)
+          let year = moment().year(item)
           year.selected = cy === item
           year.disabled = this.checkDisable('y', item)
           year.attributes = this.getHighlights('y', item)
@@ -1013,10 +1013,10 @@ export default {
     },
     months() {
       if (this.hasStep('m')) {
-        let date = this.date.clone().xStartOf('month')
+        let date = this.date.clone().startOf('month')
         let months = this.core.getMonthsList(this.minDate, this.maxDate, date)
         months.forEach(m => {
-          m.selected = this.date.xMonth() === m.xMonth()
+          m.selected = this.date.month() === m.month()
           m.disabled = m.disabled || this.checkDisable('m', m)
           m.attributes = this.getHighlights('m', m)
         })
@@ -1028,16 +1028,16 @@ export default {
       return (
         this.hasStep('d') &&
         this.minDate &&
-        this.minDate.clone().xStartOf('month') >=
-          this.date.clone().xStartOf('month')
+        this.minDate.clone().startOf('month') >=
+          this.date.clone().startOf('month')
       )
     },
     nextMonthDisabled() {
       return (
         this.hasStep('d') &&
         this.maxDate &&
-        this.maxDate.clone().xStartOf('month') <=
-          this.date.clone().xStartOf('month')
+        this.maxDate.clone().startOf('month') <=
+          this.date.clone().startOf('month')
       )
     },
     canGoToday() {
@@ -1368,11 +1368,11 @@ export default {
       }
     },
     nextMonth() {
-      this.date = this.date.clone().xAdd(1, 'month')
+      this.date = this.date.clone().add(1, 'month')
       this.$emit('next-month', this.date.clone())
     },
     prevMonth() {
-      this.date = this.date.clone().xAdd(-1, 'month')
+      this.date = this.date.clone().add(-1, 'month')
       this.$emit('prev-month', this.date.clone())
     },
     selectDay(day) {
@@ -1409,7 +1409,7 @@ export default {
     },
     selectYear(year) {
       if (year.disabled) return
-      this.date = this.date.clone().xYear(year.xYear())
+      this.date = this.date.clone().year(year.year())
       if (['year', 'year-month'].indexOf(this.type) !== -1)
         this.selectedDates = [this.date.clone()]
       this.$emit('year-change', year)
@@ -1417,7 +1417,7 @@ export default {
     },
     selectMonth(month) {
       if (month.disabled) return
-      this.date = this.date.clone().xMonth(month.xMonth())
+      this.date = this.date.clone().month(month.month())
       if (['month', 'year-month'].indexOf(this.type) !== -1)
         this.selectedDates = [this.date.clone()]
       this.$emit('month-change', month)
@@ -1439,8 +1439,8 @@ export default {
         this.selectedDates = selected.map(() => this.date.clone())
 
       if (this.range && selected.length > 1) {
-        selected[0].xStartOf('day')
-        selected[1].xEndOf('day')
+        selected[0].startOf('day')
+        selected[1].endOf('day')
       }
 
       this.output = cloneDates(selected)
@@ -1575,10 +1575,10 @@ export default {
             let a = moment(date, this.selfInputFormat)
             let b = moment(date, this.selfFormat)
             let now = moment(),
-              year = now.xYear()
+              year = now.year()
             if (this.type === 'month') {
-              a.xYear(year)
-              b.xYear(year)
+              a.year(year)
+              b.year(year)
             } else if (this.type === 'time') {
               a = now.clone().set({
                 h: a.hour(),
