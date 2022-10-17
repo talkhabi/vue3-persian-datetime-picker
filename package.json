@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "dayjs": "^1.11.5",
-    "moment-jalaali": "^0.9.4"
+    "jalaali-js": "^1.2.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.11",
