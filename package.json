@@ -1,10 +1,10 @@
 {
-  "name": "vue3-persian-datetime-picker",
-  "description": "A vue plugin to select jalali date and time",
-  "version": "1.2.2",
-  "author": "Mohammad Talkhabi",
+  "name": "persian-datetime-picker-vue",
+  "description": "A vue plugin to select jalali date and time base on dayjs",
+  "version": "1.0.0",
+  "author": "Iman Malekian",
   "license": "MIT",
-  "main": "dist/vue3-persian-datetime-picker.common.js",
+  "main": "dist/persian-datetime-picker-vue.common.js",
   "keywords": [
     "vuejs",
     "persian",
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/talkhabi/vue3-persian-datetime-picker"
+    "url": "https://github.com/imanmalekian31/vue3-persian-datetime-picker"
   },
   "files": [
     "src",
@@ -32,8 +32,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "buildAll": "npm run export-common & npm run export-umd",
-    "export-common": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename vue3-persian-datetime-picker src/picker/Vue3PersianDatetimePicker.vue --formats commonjs --no-clean",
-    "export-umd": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename vue3-persian-datetime-picker src/picker/Vue3PersianDatetimePicker.vue --formats umd,umd-min --no-clean"
+    "export-common": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename persian-datetime-picker-vue src/picker/Vue3PersianDatetimePicker.vue --formats commonjs --no-clean",
+    "export-umd": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename persian-datetime-picker-vue src/picker/Vue3PersianDatetimePicker.vue --formats umd,umd-min --no-clean"
   },
   "dependencies": {
     "dayjs": "^1.11.5",
