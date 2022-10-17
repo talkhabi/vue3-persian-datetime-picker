@@ -207,7 +207,7 @@
                           <span
                             :style="{ 'border-color': color, color }"
                             v-text="
-                              convertToLocaleNumber(date.format('jMMMM jYYYY'))
+                              convertToLocaleNumber(date.format('MMMM YYYY'))
                             "
                           />
                         </slot>
@@ -316,7 +316,7 @@
                         @click="selectYear(year)"
                       >
                         <slot name="year-item" v-bind="{ vm, year, color }">
-                          {{ convertToLocaleNumber(year.format('jYYYY')) }}
+                          {{ convertToLocaleNumber(year.format('YYYY')) }}
                         </slot>
                       </div>
                     </div>
@@ -354,7 +354,7 @@
                           name="month-item"
                           v-bind="{ vm, monthItem, color }"
                         >
-                          {{ monthItem.format('jMMMM') }}
+                          {{ monthItem.format('MMMM') }}
                         </slot>
                       </div>
                     </div>
@@ -887,7 +887,7 @@ export default {
     let coreModule = new CoreModule(defaultLocale, this.localeConfig)
     return {
       core: coreModule,
-      now: coreModule.moment(),
+      now: coreModule.dayjs(),
       date: {},
       selectedDates: [],
       hoveredItem: null,
@@ -931,10 +931,10 @@ export default {
     formattedDate() {
       let format = ''
 
-      if (this.hasStep('y')) format = 'jYYYY'
-      if (this.hasStep('m')) format += ' jMMMM '
+      if (this.hasStep('y')) format = 'YYYY'
+      if (this.hasStep('m')) format += ' MMMM '
       if (this.hasStep('d')) {
-        format = this.isDataArray ? 'jD jMMMM jYYYY' : 'ddd jD jMMMM'
+        format = this.isDataArray ? 'D MMMM YYYY' : 'ddd D MMMM'
       }
       if (this.hasStep('t')) format += ' HH:mm '
 
@@ -957,7 +957,7 @@ export default {
             attributes: {}
           }
           if (!day) return data
-          let dayMoment = this.core.moment(day)
+          let dayMoment = this.core.dayjs(day)
           data.formatted = dayMoment.date()
           data.selected = this.selectedDates.find(item => isSameDay(item, day))
           data.disabled =
@@ -996,15 +996,15 @@ export default {
     years() {
       const isYearSectionVisible = this.currentStep === 'y' || this.simple
       if (!this.hasStep('y') || !isYearSectionVisible) return []
-      let moment = this.core.moment
-      let min = this.minDate ? this.minDate : moment('1300', 'jYYYY')
+      let dayjs = this.core.dayjs
+      let min = this.minDate ? this.minDate : dayjs('1922', 'YYYY') // 1300
       let max = this.maxDate ? this.maxDate : min.clone().add(150, 'year')
       let cy = this.date.year()
       return this.core
         .getYearsList(min.year(), max.year())
         .reverse()
         .map(item => {
-          let year = moment().year(item)
+          let year = dayjs().year(item)
           year.selected = cy === item
           year.disabled = this.checkDisable('y', item)
           year.attributes = this.getHighlights('y', item)
@@ -1102,19 +1102,19 @@ export default {
             format = 'HH:mm'
             break
           case 'datetime':
-            format = 'jYYYY/jMM/jDD HH:mm'
+            format = 'YYYY/MM/DD HH:mm'
             break
           case 'date':
-            format = 'jYYYY/jMM/jDD'
+            format = 'YYYY/MM/DD'
             break
           case 'year':
-            format = 'jYYYY'
+            format = 'YYYY'
             break
           case 'month':
-            format = 'jMM'
+            format = 'MM'
             break
           case 'year-month':
-            format = 'jYYYY/jMM'
+            format = 'YYYY/MM'
             break
         }
       }
@@ -1130,7 +1130,6 @@ export default {
       let format = this.selfFormat
       let isDate = this.modelValue instanceof Date || this.format === 'date'
       return output.map(item => {
-        ;/j\w/.test(format) && item.locale('fa')
         this.setTimezone(item, 'out')
         return isDate ? item.toDate() : item.format(format)
       })
@@ -1143,9 +1142,7 @@ export default {
           ? localeFormat(this)
           : localeFormat
       }
-      if (this.localeData.name !== 'fa') {
-        format = format.replace(/j/g, '')
-      }
+
       return format
     },
     displayValue() {
@@ -1153,7 +1150,6 @@ export default {
       return this.output
         .map(item => {
           let output = item.clone()
-          ;/j\w/.test(format) && output.locale('fa')
           return this.convertToLocaleNumber(output.format(format))
         })
         .join(' ~ ')
@@ -1172,7 +1168,7 @@ export default {
       let names = JSON.parse(
         JSON.stringify(
           this.core
-            .moment()
+            .dayjs()
             .localeData()
             .weekdaysMin()
         )
@@ -1288,7 +1284,7 @@ export default {
   },
   created() {
     this.updateNowInterval = setInterval(() => {
-      this.now = this.core.moment()
+      this.now = this.core.dayjs()
     }, 1000)
   },
   mounted() {
@@ -1377,12 +1373,11 @@ export default {
     },
     selectDay(day) {
       if (!day.date || day.disabled) return
-      let date = this.core.moment(day.date)
-      date.set({
-        hour: this.time.hour(),
-        minute: this.time.minute(),
-        second: 0
-      })
+      let date = this.core.dayjs(day.date)
+      date
+        .set('hour', this.time.hour())
+        .set('minute', this.time.minute())
+        .set('second', 0)
       this.date = date.clone()
       this.time = date.clone()
       if (this.range) {
@@ -1477,9 +1472,9 @@ export default {
           } else if (null === input || !isObject) {
             date = this.getMoment(input || startValue || this.initialValue)
           }
-          date = date.isValid() ? date : this.core.moment()
+          date = date.isValid() ? date : this.core.dayjs()
         } catch (e) {
-          date = this.core.moment()
+          date = this.core.dayjs()
         }
         this.setTimezone(date, 'in')
         return date
@@ -1514,7 +1509,7 @@ export default {
       }
     },
     goToday() {
-      let now = this.core.moment()
+      let now = this.core.dayjs()
       if (!this.hasStep('t')) now.set({ hour: 0, minute: 0, second: 0 })
       this.date = now.clone()
       this.time = now.clone()
@@ -1563,18 +1558,18 @@ export default {
     },
     getMoment(date) {
       let d,
-        moment = this.core.moment
+        dayjs = this.core.dayjs
 
-      if (date instanceof Date) return moment(date)
+      if (date instanceof Date) return dayjs(date)
 
       if (this.selfInputFormat === 'x' || this.selfInputFormat === 'unix') {
-        d = moment(date.toString().length === 10 ? date * 1000 : date * 1)
+        d = dayjs(date.toString().length === 10 ? date * 1000 : date * 1)
       } else {
         try {
           if (date) {
-            let a = moment(date, this.selfInputFormat)
-            let b = moment(date, this.selfFormat)
-            let now = moment(),
+            let a = dayjs(date, this.selfInputFormat)
+            let b = dayjs(date, this.selfFormat)
+            let now = dayjs(),
               year = now.year()
             if (this.type === 'month') {
               a.year(year)
@@ -1593,10 +1588,10 @@ export default {
               d = a.clone()
             }
           } else {
-            d = moment()
+            d = dayjs()
           }
         } catch (er) {
-          d = moment()
+          d = dayjs()
         }
       }
       return d
@@ -1627,7 +1622,7 @@ export default {
         item = `${item}`.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '')
         if (item === '') return null
         try {
-          let date = this.core.moment(item, this.selfDisplayFormat)
+          let date = this.core.dayjs(item, this.selfDisplayFormat)
           return date.isValid() ? date : null
         } catch (er) {
           return null
@@ -1705,7 +1700,7 @@ export default {
 
       let format = this.selfFormat
       if (item === 'y') {
-        value = this.core.moment(value, 'jYYYY')
+        value = this.core.dayjs(value, 'YYYY')
       } else if (item === 'd') {
         // remove time from format
         format = format.replace(/(H(H?))|(h(h?))?(:?)m(m?)(:?)(s(s?))?/g, '')
@@ -1715,7 +1710,7 @@ export default {
     getHighlights(item, value) {
       let highlight = this.highlight
       if (!highlight || typeof highlight !== 'function') return {}
-      if (item === 'y') value = this.core.moment(value, 'jYYYY')
+      if (item === 'y') value = this.core.dayjs(value, 'YYYY')
       return (
         this.applyDevFn(
           highlight,
@@ -1741,20 +1736,26 @@ export default {
       this.core.changeLocale(locale, this.localeConfig)
       this.date = this.date.clone()
       this.selectedDates = this.selectedDates.map(d => d.clone())
+      // TODO: FIX CHANGE LOCALE
+      document.querySelector('.vpd-selected') &&
+        document.querySelector('.vpd-selected').click()
     },
     setTimezone(date, mode) {
       let tz = this.timezone
       if (tz) {
         let r = mode === 'in' ? 1 : -1
-        let moment = this.core.momentBase
+        let dayjs = this.core.dayjsBase
         if (typeof tz === 'string') {
           let t =
-            moment()
+            dayjs()
               .utc()
               .format('YYYY-MM-DDTHH:mm:ss') + tz
-          date.add(moment.parseZone(t).utcOffset() * r, 'minutes')
+          date = date.add(dayjs.parseZone(t).utcOffset() * r, 'minutes')
         } else if (typeof tz === 'boolean' && tz) {
-          date.subtract(new Date(date).getTimezoneOffset() * r, 'minutes')
+          date = date.subtract(
+            new Date(date).getTimezoneOffset() * r,
+            'minutes'
+          )
         } else if (typeof tz === 'function') {
           date = tz(date, mode, this)
         }

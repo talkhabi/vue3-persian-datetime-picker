@@ -3,38 +3,31 @@
 
 import dayjs from 'dayjs'
 import utils from './utils'
-import fa from './moment.locale.fa'
 import updateLocale from 'dayjs/plugin/updateLocale'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import localeData from 'dayjs/plugin/localeData'
+import calendar from 'dayjs/plugin/calendar'
+import utc from 'dayjs/plugin/utc'
+import dayjsJalali from './dayjs-jalali'
+
+import 'dayjs/locale/fa'
 
 dayjs.extend(updateLocale)
 dayjs.extend(relativeTime)
 dayjs.extend(localeData)
+dayjs.extend(calendar)
+dayjs.extend(utc)
+dayjs.extend(dayjsJalali)
 dayjs.updateLocale('en', {
   weekdaysMin: 'S_M_T_W_T_F_S'.split('_')
 })
-dayjs.updateLocale('fa', fa)
 
 //=====================================
 //           CONFIG
 //=====================================
-const localMethods = {
-  fa: {
-    year: 'year',
-    month: 'month',
-    date: 'date',
-    day: 'day'
-  },
-  en: {
-    year: 'year',
-    month: 'month',
-    date: 'date',
-    day: 'day'
-  }
-}
 const localesConfig = {
   fa: {
+    calendar: 'jalali',
     dow: 6,
     dir: 'rtl',
     displayFormat: null,
@@ -51,6 +44,7 @@ const localesConfig = {
     }
   },
   en: {
+    calendar: 'gregorian',
     dow: 0,
     dir: 'ltr',
     displayFormat: null,
@@ -72,8 +66,8 @@ const Core = function(defaultLocaleName, defaultOptions) {
   'use strict'
 
   const Instance = {
-    moment: dayjs,
-    momentBase: dayjs,
+    dayjs: dayjs,
+    dayjsBase: dayjs,
     locale: { name: 'fa', config: {} },
     localesConfig: {},
     setLocalesConfig: null,
@@ -92,6 +86,7 @@ const Core = function(defaultLocaleName, defaultOptions) {
     options = {}
   ) {
     let locale = this.locale
+    let calendar = localesConfig[localeName].calendar
     let config = utils.clone(localesConfig[localeName] || localesConfig.en)
 
     options = options[localeName] || {}
@@ -100,10 +95,11 @@ const Core = function(defaultLocaleName, defaultOptions) {
     locale.name = localeName
     locale.config = utils.extend(true, config, options)
 
-    this.moment = function() {
-      let date = dayjs.apply(null, arguments)
-      date.locale(locale.name)
-      return date
+    this.dayjs = function() {
+      return dayjs
+        .apply(null, arguments)
+        .locale(locale.name)
+        .calendar(calendar)
     }
   }
 
@@ -139,7 +135,8 @@ const Core = function(defaultLocaleName, defaultOptions) {
     let dayArray = [day.toDate()]
 
     for (let i = 2; i <= daysInMonth; i++) {
-      dayArray.push(day.add(1, 'day').toDate())
+      day = day.add(1, 'day')
+      dayArray.push(day.toDate())
     }
 
     let weekArray = []
