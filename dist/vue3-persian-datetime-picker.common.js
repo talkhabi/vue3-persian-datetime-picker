@@ -636,9 +636,6 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   class: "vpd-content"
 };
-var _hoisted_4 = {
-  class: "vpd-body"
-};
 var _hoisted_5 = {
   class: "vpd-clearfix vpd-week"
 };
@@ -676,6 +673,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_arrow = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("arrow");
 
   var _component_time_section = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("time-section");
+  var _hoisted_4 = {
+  class: "vpd-body",
+    style: {
+          'background-color': $props.background
+        }
+  }; 
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("span", {
     class: ["vpd-main", {
@@ -1109,6 +1112,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             "jump-minute": $props.jumpMinute,
             "round-minute": $props.roundMinute,
             "get-highlights": $options.getHighlights,
+            "background": $props.background,
             "selected-dates": $data.selectedDates,
             "convert-to-locale-number": $options.convertToLocaleNumber
           }, null, 8, ["date", "time", "is-more", "is-lower", "min-date", "max-date", "jump-minute", "round-minute", "get-highlights", "selected-dates", "convert-to-locale-number"])), [[external_commonjs_vue_commonjs2_vue_root_Vue_["vShow"], $options.currentStep === 't']]) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true)];
@@ -1368,11 +1372,15 @@ var TimeSectionvue_type_template_id_eaee77d4_hoisted_1 = {
 };
 function TimeSectionvue_type_template_id_eaee77d4_render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_time_column = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("time-column");
-
+  console.log($props)
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("div", {
     class: ['vpd-addon-list vpd-time', {
       'vpd-disabled': $props.isDisableTime
-    }]
+    }],
+    style: {
+      'background-color': $props.background,
+      'border-bottom-color':$props.background,
+    }
   }, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])("div", TimeSectionvue_type_template_id_eaee77d4_hoisted_1, [Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createVNode"])(_component_time_column, {
     ref: "hour",
     modelValue: $options.hourModel,
@@ -1986,6 +1994,10 @@ TimeColumnvue_type_script_lang_js.render = TimeColumnvue_type_template_id_13b8ce
       default: function _default() {
         return {};
       }
+    },
+    background: {
+      type: String,
+      default:'#fff'
     },
     jumpMinute: {
       type: Number,
@@ -3106,6 +3118,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     color: {
       type: String,
       default: '#417df4'
+    },
+    background: {
+      type: String,
+      default:'#fff'
     },
 
     /**
