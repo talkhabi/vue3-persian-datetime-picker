@@ -636,9 +636,6 @@ var _hoisted_2 = {
 var _hoisted_3 = {
   class: "vpd-content"
 };
-var _hoisted_4 = {
-  class: "vpd-body"
-};
 var _hoisted_5 = {
   class: "vpd-clearfix vpd-week"
 };
@@ -676,6 +673,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_arrow = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("arrow");
 
   var _component_time_section = Object(external_commonjs_vue_commonjs2_vue_root_Vue_["resolveComponent"])("time-section");
+  var _hoisted_4 = {
+  class: "vpd-body",
+    style: {
+          'background-color': $props.background
+        }
+  }; 
 
   return Object(external_commonjs_vue_commonjs2_vue_root_Vue_["openBlock"])(), Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createBlock"])("span", {
     class: ["vpd-main", {
@@ -3106,6 +3109,10 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     color: {
       type: String,
       default: '#417df4'
+    },
+    background: {
+      type: String,
+      default:'#fff'
     },
 
     /**
