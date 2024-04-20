@@ -1,9 +1,12 @@
 <template>
-  <div class="home">
+  <div>
     <h1>{{ pageTitle }}</h1>
-    <div>
-      <date-picker v-model="date" />
-      {{ date }}
+    <div style="display: flex;justify-content: space-between;">
+      <div>{{ date }}</div>
+      <div>
+        <date-picker v-model="date" custom-input=".custom-input" popover />
+        <input class="custom-input" />
+      </div>
     </div>
 
     <div style="margin-top:30px">
