@@ -1777,9 +1777,16 @@ export default {
       this.windowWidth = window.innerWidth
     },
     onWindowClick(event) {
-      if (this.isPopover && this.$refs.picker && this.$refs.inputGroup) {
+      if (
+        this.isPopover &&
+        this.$refs.picker &&
+        (this.$refs.inputGroup || this.customInputElement)
+      ) {
         let isOnPicker = this.$refs.picker.contains(event.target)
-        let isOnInput = this.$refs.inputGroup.contains(event.target)
+        let isOnInput = this.customInputElement
+          ? document.querySelector(this.customInput).contains(event.target)
+          : this.$refs.inputGroup.contains(event.target)
+
         if (isOnPicker) event.preventDefault()
         if (!isOnPicker && !isOnInput) {
           // setTimeout because:
