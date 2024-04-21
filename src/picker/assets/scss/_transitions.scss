@@ -39,21 +39,21 @@
 
 .direction-next {
   .slideX-leave-to {
-    transform: translateX(-100%);
+    transform: translateX(-95px);
   }
 
   .slideX-enter-from {
-    transform: translateX(100%);
+    transform: translateX(95px);
   }
 }
 
 .direction-prev {
   .slideX-leave-to {
-    transform: translateX(100%);
+    transform: translateX(95px);
   }
 
   .slideX-enter-from {
-    transform: translateX(-100%);
+    transform: translateX(-95px);
   }
 }
 
@@ -132,21 +132,21 @@
 .#{$prefix}dir-rtl {
   .direction-next {
     .slideX-leave-to {
-      transform: translateX(100%);
+      transform: translateX(95px);
     }
 
     .slideX-enter-from {
-      transform: translateX(-100%);
+      transform: translateX(-95px);
     }
   }
 
   .direction-prev {
     .slideX-leave-to {
-      transform: translateX(-100%);
+      transform: translateX(-95px);
     }
 
     .slideX-enter-from {
-      transform: translateX(100%);
+      transform: translateX(95px);
     }
   }
 }
