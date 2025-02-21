@@ -362,6 +362,10 @@ function createStyleElement () {
 }
 
 function addStyle (obj /* StyleObjectPart */) {
+
+  if(typeof document === 'undefined')// in SSR 'document' is not defined, it has to be checked before use
+    return noop
+
   var update, remove
   var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
 
@@ -3428,7 +3432,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       updateNowInterval: null,
       locales: ['fa'],
       localeData: coreModule.locale,
-      windowWidth: window.innerWidth,
+      windowWidth: 100, // windowns is not defined in SSR, lets assign 100 for default for example and get the correct value in mounted hook
       popoverPlace: 'bottom-right'
     };
   },
@@ -3846,6 +3850,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }, 1000);
   },
   mounted: function mounted() {
+    this.windowWidth = window.innerWidth; // now since we have windows, we can get the width
+
     var _this9 = this;
 
     this.$nextTick(function () {
