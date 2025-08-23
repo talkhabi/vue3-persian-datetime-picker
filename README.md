@@ -1,5 +1,7 @@
 # vite-vue3-persian-datetime-picker
 
+[![npm version](https://badge.fury.io/js/vite-vue3-persian-datetime-picker.svg)](https://badge.fury.io/js/vite-vue3-persian-datetime-picker)
+
 > A vue plugin to select jalali date and time
 
 This package is a fork of [vue3-persian-datetime-picker](https://github.com/talkhabi/vue3-persian-datetime-picker) which is migrated to use vite as build tool instead of webpack.
