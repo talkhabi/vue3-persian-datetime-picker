@@ -1,7 +1,7 @@
 {
   "name": "vite-vue3-persian-datetime-picker",
   "description": "A vue plugin to select jalali date and time",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "author": "Arshia Esmailzadeh",
   "license": "MIT",
   "keywords": [
@@ -24,11 +24,19 @@
   "files": [
     "src",
     "dist/*.js",
-    "index.d.ts"
+    "src/index.d.ts"
   ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts"
+    }
+  },
+  "types": "./src/index.d.ts",
   "scripts": {
     "serve": "vite serve",
     "build": "vite build",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly --outDir dist",
+    "build:lib": "vite build --config vite.config.js && bun run build:types",
     "lint": "vue-cli-service lint",
     "buildAll": "npm run export-common & npm run export-umd",
     "export-common": "vue-cli-service build --target lib --name Vue3PersianDatetimePicker --filename vue3-persian-datetime-picker src/picker/Vue3PersianDatetimePicker.vue --formats commonjs --no-clean",
@@ -44,43 +52,19 @@
   "devDependencies": {
     "@vue/compiler-sfc": "^3.0.5",
     "@vue/eslint-config-prettier": "^6.0.0",
+    "ajv": "8.17.1",
     "eslint": "^6.8.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.5.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
+    "tsc": "^2.0.4",
+    "vite-plugin-dts": "^4.5.4",
     "vue": "^3.5.19",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vue-tsc": "^3.0.6"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "plugin:vue/vue3-strongly-recommended",
-      "plugin:vue/vue3-recommended",
-      "@vue/prettier"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "vue/html-self-closing": [
-        "warn",
-        {
-          "html": {
-            "void": "always",
-            "normal": "always",
-            "component": "always"
-          },
-          "svg": "always",
-          "math": "always"
-        }
-      ]
-    }
-  },
+  "type": "module",
   "prettier": {
     "semi": false,
     "singleQuote": true,

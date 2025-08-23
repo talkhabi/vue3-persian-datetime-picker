@@ -459,7 +459,7 @@ import { cloneDates, extend, isSameDay } from './modules/utils'
 import { addLiveEvent } from './modules/utils'
 
 export default {
-  name: 'Vue3PersianDatetimePicker',
+  name: 'ViteVue3PersianDatetimePicker',
   components: {
     SimpleMode,
     TimeSection,
