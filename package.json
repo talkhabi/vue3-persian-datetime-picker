@@ -1,8 +1,8 @@
 {
-  "name": "vue3-persian-datetime-picker",
+  "name": "vue3-vite-persian-datetime-picker",
   "description": "A vue plugin to select jalali date and time",
-  "version": "1.2.2",
-  "author": "Mohammad Talkhabi",
+  "version": "1.0.0",
+  "author": "Arshia Esmailzadeh",
   "license": "MIT",
   "main": "dist/vue3-persian-datetime-picker.common.js",
   "keywords": [
@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/talkhabi/vue3-persian-datetime-picker"
+    "url": "https://github.com/arshiaas1973/vue3-vite-persian-datetime-picker"
   },
   "files": [
     "src",
