@@ -1,1 +1,1 @@
-declare module 'vue3-persian-datetime-picker'
+declare module 'vite-vue3-persian-datetime-picker'
