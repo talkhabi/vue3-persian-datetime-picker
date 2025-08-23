@@ -1,3 +1,5 @@
+@use "variables";
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
@@ -15,7 +17,7 @@
 .vpd-fade-scale-leave-active {
   opacity: 0;
 
-  .#{$prefix}content {
+  .#{variables.$prefix}content {
     transform: scale(0.7, 0.7);
     opacity: 0;
   }
@@ -129,7 +131,7 @@
   }
 }
 
-.#{$prefix}dir-rtl {
+.#{variables.$prefix}dir-rtl {
   .direction-next {
     .slideX-leave-to {
       transform: translateX(100%);

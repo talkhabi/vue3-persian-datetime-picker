@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import TimeColumn from './TimeColumn'
+import TimeColumn from './TimeColumn.vue'
 
 export default {
   name: 'TimeSection',

@@ -1,12 +1,14 @@
-@import 'variables';
-@import 'transitions';
+@use "sass:color";
+@use 'variables';
+@use 'transitions';
+@use "sass:math";
 
-.#{$prefix}main *,
-.#{$prefix}wrapper * {
+.#{variables.$prefix}main *,
+.#{variables.$prefix}wrapper * {
   box-sizing: border-box;
 }
 
-.#{$prefix}clearfix {
+.#{variables.$prefix}clearfix {
   &:after, &:before {
     content: " ";
     display: table;
@@ -17,7 +19,7 @@
   }
 }
 
-.#{$prefix}input-group {
+.#{variables.$prefix}input-group {
   display: flex;
   position: relative;
 
@@ -30,7 +32,7 @@
     line-height: 30px;
     padding: 0 10px;
 
-    &:not(.#{$prefix}is-editable) {
+    &:not(.#{variables.$prefix}is-editable) {
       cursor: pointer;
     }
   }
@@ -46,13 +48,13 @@
     }
   }
 
-  &.#{$prefix}disabled {
+  &.#{variables.$prefix}disabled {
     input, label {
       cursor: default;
     }
   }
 
-  .#{$prefix}clear-btn {
+  .#{variables.$prefix}clear-btn {
     position: absolute;
     left: 0;
     top: 0;
@@ -70,7 +72,7 @@
   }
 }
 
-.#{$prefix}icon-btn {
+.#{variables.$prefix}icon-btn {
   cursor: pointer;
   padding: 0 10px;
   display: flex;
@@ -78,7 +80,7 @@
   align-items: center;
 }
 
-.#{$prefix}wrapper {
+.#{variables.$prefix}wrapper {
   position: fixed;
   top: 0;
   left: 0;
@@ -90,7 +92,7 @@
   z-index: 9999;
 }
 
-.#{$prefix}container {
+.#{variables.$prefix}container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -101,28 +103,28 @@
   -ms-user-select: none;
 }
 
-.#{$prefix}content {
+.#{variables.$prefix}content {
   opacity: 1;
   transition: all .4s cubic-bezier(0.25, 0.1, 0.17, 1.84);
   text-align: right;
   direction: rtl;
-  width: $width;
+  width: variables.$width;
   background-color: #ffffff;
   box-shadow: 5px 22px 95px -14px rgba(0, 0, 0, 1);
   cursor: default;
 }
 
-.#{$prefix}header {
+.#{variables.$prefix}header {
   color: #ffffff;
   padding: 10px 20px;
   position: relative;
 }
 
-.#{$prefix}body {
+.#{variables.$prefix}body {
   position: relative;
 }
 
-.#{$prefix}year-label {
+.#{variables.$prefix}year-label {
   margin-bottom: 2px;
   position: relative;
   height: 24px;
@@ -148,7 +150,7 @@
   }
 }
 
-.#{$prefix}date {
+.#{variables.$prefix}date {
   position: relative;
   font-size: 28px;
   line-height: 40px;
@@ -162,7 +164,7 @@
   }
 }
 
-.#{$prefix}week {
+.#{variables.$prefix}week {
   font-size: 12px;
   padding: 0 14px;
   line-height: 20px;
@@ -171,27 +173,27 @@
   height: 20px;
 }
 
-.#{$prefix}weekday {
+.#{variables.$prefix}weekday {
   float: right;
-  width: $day-size;
+  width: variables.$day-size;
   text-align: center;
 }
 
-.#{$prefix}days {
+.#{variables.$prefix}days {
   padding: 0 18px;
   position: relative;
   overflow: hidden;
   transition: height 300ms cubic-bezier(0.75, 0.02, 0.27, 0.99);
 }
 
-.#{$prefix}day {
-  width: $day-size;
-  height: $day-size;
+.#{variables.$prefix}day {
+  width: variables.$day-size;
+  height: variables.$day-size;
   float: right;
-  line-height: $day-size;
+  line-height: variables.$day-size;
   position: relative;
 
-  &:not(.#{$prefix}empty) {
+  &:not(.#{variables.$prefix}empty) {
     cursor: pointer;
     transition: color 450ms ease;
     text-align: center;
@@ -199,14 +201,14 @@
 
   &[disabled='true'] {
     cursor: default;
-    color: darken(#ffffff, 20%);
+    color: color.adjust(#ffffff, $lightness: -20%);
 
-    .#{$prefix}day-effect {
+    .#{variables.$prefix}day-effect {
       background-color: transparent;
     }
 
-    .#{$prefix}day-text {
-      color: darken(#ffffff, 20%);
+    .#{variables.$prefix}day-text {
+      color: color.adjust(#ffffff, $lightness: -20%);
     }
   }
 
@@ -214,32 +216,32 @@
     &:hover {
       color: #ffffff;
 
-      .#{$prefix}day-effect {
+      .#{variables.$prefix}day-effect {
         transform: scale(1);
         opacity: 0.6;
       }
     }
 
-    &.#{$prefix}selected {
+    &.#{variables.$prefix}selected {
       color: #ffffff;
 
-      .#{$prefix}day-effect {
+      .#{variables.$prefix}day-effect {
         transform: scale(1);
         opacity: 1;
       }
     }
 
-    &.#{$prefix}range-between {
+    &.#{variables.$prefix}range-between {
       color: #ffffff;
-      .#{$prefix}day-effect {
+      .#{variables.$prefix}day-effect {
         transform: scale(0.75);
         opacity: 1;
       }
     }
 
-    &.#{$prefix}range-hover {
+    &.#{variables.$prefix}range-hover {
       color: #ffffff;
-      .#{$prefix}day-effect {
+      .#{variables.$prefix}day-effect {
         transform: scale(0.7);
         opacity: 0.6;
       }
@@ -247,10 +249,10 @@
   }
 }
 
-.#{$prefix}day-effect {
+.#{variables.$prefix}day-effect {
   position: absolute;
-  width: $day-size - 4px;
-  height: $day-size - 4px;
+  width: variables.$day-size - 4px;
+  height: variables.$day-size - 4px;
   border-radius: 50%;
   top: 2px;
   left: 2px;
@@ -259,15 +261,15 @@
   transition: all 450ms ease;
 }
 
-.#{$prefix}day-text {
+.#{variables.$prefix}day-text {
   position: relative;
 }
 
-.#{$prefix}controls {
+.#{variables.$prefix}controls {
   position: relative;
   z-index: 2;
-  height: $month-label-height;
-  line-height: $month-label-height;
+  height: variables.$month-label-height;
+  line-height: variables.$month-label-height;
   text-align: center;
 
   button {
@@ -285,42 +287,42 @@
   }
 }
 
-.#{$prefix}next,
-.#{$prefix}prev {
-  width: $month-label-height;
-  height: $month-label-height;
-  line-height: $month-label-height;
+.#{variables.$prefix}next,
+.#{variables.$prefix}prev {
+  width: variables.$month-label-height;
+  height: variables.$month-label-height;
+  line-height: variables.$month-label-height;
 }
 
-.#{$prefix}next {
+.#{variables.$prefix}next {
   float: right;
 }
 
-.#{$prefix}prev {
+.#{variables.$prefix}prev {
   float: left;
 }
 
-.#{$prefix}arrow {
+.#{variables.$prefix}arrow {
   width: 11px;
   height: 11px;
 }
 
-.#{$prefix}month {
+.#{variables.$prefix}month {
   position: relative;
   overflow: hidden;
 }
 
-.#{$prefix}month-label {
+.#{variables.$prefix}month-label {
   position: absolute;
   top: 0;
-  left: $month-label-height;
-  right: $month-label-height;
+  left: variables.$month-label-height;
+  right: variables.$month-label-height;
   overflow: hidden;
   width: 95px;
   margin-left: auto;
   margin-right: auto;
-  line-height: $month-label-height;
-  height: $month-label-height;
+  line-height: variables.$month-label-height;
+  height: variables.$month-label-height;
   text-align: center;
   cursor: pointer;
 
@@ -342,7 +344,7 @@
   }
 }
 
-.#{$prefix}actions {
+.#{variables.$prefix}actions {
   text-align: right;
   padding: 8px;
 
@@ -362,7 +364,7 @@
     transition: all 0.3s ease;
 
     &:hover {
-      background-color: darken(#ffffff, 5%);
+      background-color: color.adjust(#ffffff, $lightness: -5%);
     }
 
     &[disabled='true'] {
@@ -372,12 +374,12 @@
   }
 }
 
-.#{$prefix}addon-list-content {
+.#{variables.$prefix}addon-list-content {
   direction: rtl;
 }
 
-.#{$prefix}addon-list-item {
-  width: (1/3)*100%;
+.#{variables.$prefix}addon-list-item {
+  width: math.div(1,3)*100%;
   text-align: center;
   font-size: 14px;
   height: 44px;
@@ -388,17 +390,17 @@
   float: right;
   border: solid 4px #fff;
 
-  &.#{$prefix}selected, &:hover {
+  &.#{variables.$prefix}selected, &:hover {
     background-color: #f9f9f9;
   }
 
-  &.#{$prefix}selected {
+  &.#{variables.$prefix}selected {
     font-weight: bold;
     background-color: #f5f5f5;
   }
 }
 
-.#{$prefix}addon-list {
+.#{variables.$prefix}addon-list {
   width: 100%;
   background-color: #ffffff;
   position: absolute;
@@ -409,15 +411,15 @@
   border-bottom: solid 1px #eee;
   direction: ltr;
 
-  &.#{$prefix}can-close {
+  &.#{variables.$prefix}can-close {
     padding-top: 30px;
   }
 }
 
-.#{$prefix}month-list {
+.#{variables.$prefix}month-list {
   padding-top: 15px;
 
-  .#{$prefix}addon-list-item {
+  .#{variables.$prefix}addon-list-item {
     height: 54px;
     line-height: 46px;
 
@@ -425,13 +427,13 @@
   }
 }
 
-.#{$prefix}addon-list-item[disabled='true'] {
+.#{variables.$prefix}addon-list-item[disabled='true'] {
   opacity: 0.3;
   cursor: default !important;
   background-color: transparent !important;
 }
 
-.#{$prefix}close-addon {
+.#{variables.$prefix}close-addon {
   position: absolute;
   top: 4px;
   left: 4px;
@@ -446,13 +448,13 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.#{$prefix}time {
+.#{variables.$prefix}time {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
 
-  .#{$prefix}time-h,
-  .#{$prefix}time-m {
+  .#{variables.$prefix}time-h,
+  .#{variables.$prefix}time-m {
     position: relative;
     margin-top: 70px;
     float: left;
@@ -461,7 +463,7 @@
     text-align: center;
     color: #a2a2a2;
 
-    .#{$prefix}counter {
+    .#{variables.$prefix}counter {
       font-size: 90px;
       height: 100px;
       line-height: 100px;
@@ -471,7 +473,7 @@
       transition: opacity 0.3s ease-in-out;
     }
 
-    .#{$prefix}counter-item {
+    .#{variables.$prefix}counter-item {
       height: inherit;
       width: 51px;
       display: inline-block;
@@ -480,7 +482,7 @@
     }
   }
 
-  .#{$prefix}time-h:after {
+  .#{variables.$prefix}time-h:after {
     position: absolute;
     top: 50%;
     right: 0;
@@ -490,8 +492,8 @@
     transition: inherit;
   }
 
-  .#{$prefix}up-arrow-btn,
-  .#{$prefix}down-arrow-btn {
+  .#{variables.$prefix}up-arrow-btn,
+  .#{variables.$prefix}down-arrow-btn {
     display: block;
     cursor: pointer;
     outline: none;
@@ -501,13 +503,13 @@
     }
   }
 
-  &.#{$prefix}disabled .#{$prefix}counter-item {
+  &.#{variables.$prefix}disabled .#{variables.$prefix}counter-item {
     opacity: 0.5;
   }
 }
 
-.#{$prefix}time-column {
-  .#{$prefix}counter {
+.#{variables.$prefix}time-column {
+  .#{variables.$prefix}counter {
     position: relative;
     input {
       position: absolute;
@@ -535,7 +537,7 @@
   }
 }
 
-.#{$prefix}prev-step {
+.#{variables.$prefix}prev-step {
   position: absolute;
   top: 0;
   left: 0;
@@ -551,15 +553,15 @@
 }
 
 [data-type="time"] {
-  .#{$prefix}time {
-    .#{$prefix}time-m,
-    .#{$prefix}time-h {
+  .#{variables.$prefix}time {
+    .#{variables.$prefix}time-m,
+    .#{variables.$prefix}time-h {
       margin-top: 40px;
     }
   }
 }
 
-.#{$prefix}is-inline {
+.#{variables.$prefix}is-inline {
   position: static;
   background-color: transparent;
   height: auto;
@@ -567,122 +569,122 @@
   display: block;
   margin-top: 2px;
 
-  .#{$prefix}container {
+  .#{variables.$prefix}container {
     position: static;
     transform: none;
   }
 
-  .#{$prefix}content {
+  .#{variables.$prefix}content {
     box-shadow: 0 0 1px -1px black;
   }
 }
 
-.#{$prefix}is-popover {
+.#{variables.$prefix}is-popover {
   display: inline-block;
   position: relative;
-  .#{$prefix}wrapper {
+  .#{variables.$prefix}wrapper {
     position: static;
     width: auto;
     height: 0;
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       transform: none;
       top: auto;
       left: auto;
       z-index: 500;
     }
-    .#{$prefix}content {
+    .#{variables.$prefix}content {
       transition: none;
       box-shadow: 0 3px 8px rgba(black, 0.4);
     }
   }
   &[data-placement="top-left"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       bottom: 100%;
       left: 0;
     }
-    .#{$prefix}content {
+    .#{variables.$prefix}content {
       box-shadow: 0 -3px 8px rgba(black, 0.4);
     }
   }
   &[data-placement="top-right"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       bottom: 100%;
       right: 0;
     }
-    .#{$prefix}content {
+    .#{variables.$prefix}content {
       box-shadow: 0 -3px 8px rgba(black, 0.4);
     }
   }
   &[data-placement="bottom-left"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       top: 100%;
       left: 0;
     }
   }
   &[data-placement="bottom-right"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       top: 100%;
       right: 0;
     }
   }
   &[data-placement="left-top"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       bottom: 0;
       right: 100%;
     }
   }
   &[data-placement="left-bottom"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       top: 0;
       right: 100%;
     }
   }
   &[data-placement="right-top"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       bottom: 0;
       left: 100%;
     }
   }
   &[data-placement="right-bottom"] {
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       top: 0;
       left: 100%;
     }
   }
 }
 
-.#{$prefix}no-footer {
-  .#{$prefix}addon-list {
+.#{variables.$prefix}no-footer {
+  .#{variables.$prefix}addon-list {
     bottom: 0;
     border-bottom: none;
   }
 }
 
-.#{$prefix}wrapper {
+.#{variables.$prefix}wrapper {
   &[data-type="datetime"] {
-    &.#{$prefix}compact-time {
-      .#{$prefix}time {
+    &.#{variables.$prefix}compact-time {
+      .#{variables.$prefix}time {
         margin-top: 10px;
         display: block !important;
         position: relative;
         border-top: solid 1px #eee;
         overflow: hidden;
-        .#{$prefix}addon-list-content {
+        .#{variables.$prefix}addon-list-content {
           display: flex;
           justify-content: center;
           direction: ltr;
         }
-        .#{$prefix}counter-item {
+        .#{variables.$prefix}counter-item {
           width: 18px;
         }
-        .#{$prefix}counter {
+        .#{variables.$prefix}counter {
           height: 30px;
           font-size: 20px;
           line-height: 34px;
           width: 40px;
         }
-        .#{$prefix}up-arrow-btn,
-        .#{$prefix}down-arrow-btn {
+        .#{variables.$prefix}up-arrow-btn,
+        .#{variables.$prefix}down-arrow-btn {
           position: absolute;
           top: 0;
           height: 26px;
@@ -694,31 +696,31 @@
           align-items: center;
           background-color: rgba(black, 0.05);
         }
-        .#{$prefix}time-m {
+        .#{variables.$prefix}time-m {
           margin-top: 0;
           float: none;
           width: 100px;
-          .#{$prefix}up-arrow-btn {
+          .#{variables.$prefix}up-arrow-btn {
             right: 30px;
           }
-          .#{$prefix}down-arrow-btn {
+          .#{variables.$prefix}down-arrow-btn {
             right: 0;
           }
         }
-        .#{$prefix}time-h {
+        .#{variables.$prefix}time-h {
           margin-top: 0;
           float: none;
           width: 100px;
           &:after {
             font-size: 20px;
           }
-          .#{$prefix}counter {
+          .#{variables.$prefix}counter {
             margin-left: auto;
           }
-          .#{$prefix}up-arrow-btn {
+          .#{variables.$prefix}up-arrow-btn {
             left: 0;
           }
-          .#{$prefix}down-arrow-btn {
+          .#{variables.$prefix}down-arrow-btn {
             left: 30px;
           }
         }
@@ -728,18 +730,18 @@
       }
     }
 
-    .#{$prefix}date {
+    .#{variables.$prefix}date {
       font-size: 22px;
     }
   }
 
-  &.#{$prefix}is-range {
-    .#{$prefix}date {
+  &.#{variables.$prefix}is-range {
+    .#{variables.$prefix}date {
       font-size: 16px;
     }
   }
-  &.#{$prefix}is-multiple {
-    .#{$prefix}date {
+  &.#{variables.$prefix}is-multiple {
+    .#{variables.$prefix}date {
       font-size: 14px;
       white-space: normal;
       line-height: 20px;
@@ -748,11 +750,11 @@
 }
 
 @media screen and (max-height: 460px) {
-  .#{$prefix}wrapper {
+  .#{variables.$prefix}wrapper {
     overflow: auto;
     text-align: center;
 
-    .#{$prefix}container {
+    .#{variables.$prefix}container {
       position: relative;
       top: 0;
       left: 0;
@@ -763,7 +765,7 @@
   }
 }
 
-.#{$prefix}locales {
+.#{variables.$prefix}locales {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -782,33 +784,33 @@
 // =======================
 //      Simple Mode
 // =======================
-.#{$prefix}simple-body {
-  .#{$prefix}header {
+.#{variables.$prefix}simple-body {
+  .#{variables.$prefix}header {
     display: flex;
     padding: 10px;
     justify-content: space-between;
   }
-  .#{$prefix}locales {
+  .#{variables.$prefix}locales {
     position: static;
     padding: 0 5px;
     line-height: unset;
   }
 }
 
-.#{$prefix}simple-content {
+.#{variables.$prefix}simple-content {
   display: flex;
   justify-content: center;
   height: 240px;
   direction: ltr;
 
-  .#{$prefix}column {
+  .#{variables.$prefix}column {
     height: 100%;
     flex-grow: 1;
     display: flex;
     flex-flow: column;
     padding: 5px;
 
-    .#{$prefix}column-header {
+    .#{variables.$prefix}column-header {
       text-align: center;
       font-weight: bold;
       color: black;
@@ -816,7 +818,7 @@
       line-height: 30px;
     }
 
-    .#{$prefix}column-content {
+    .#{variables.$prefix}column-content {
       flex-grow: 1;
       height: 100%;
       overflow: auto;
@@ -848,7 +850,7 @@
     }
   }
 
-  .#{$prefix}addon-list-item {
+  .#{variables.$prefix}addon-list-item {
     width: 100%;
     float: none !important;
     line-height: 42px;
@@ -856,24 +858,24 @@
     border: solid 1px white;
   }
 
-  .#{$prefix}range-first {
+  .#{variables.$prefix}range-first {
     border-radius: 40px 40px 0 0;
   }
 
-  .#{$prefix}range-between {
+  .#{variables.$prefix}range-between {
     font-weight: bold;
     background-color: #f5f5f5;
   }
 
-  .#{$prefix}range-last {
+  .#{variables.$prefix}range-last {
     border-radius: 0 0 40px 40px;
-    &.#{$prefix}range-first {
+    &.#{variables.$prefix}range-first {
       border-radius: 40px;
     }
   }
 
-  .#{$prefix}column.#{$prefix}is-mounted {
-    .#{$prefix}selected:not(.#{$prefix}range-first):not(.#{$prefix}range-last):not([disabled='true']) {
+  .#{variables.$prefix}column.#{variables.$prefix}is-mounted {
+    .#{variables.$prefix}selected:not(.#{variables.$prefix}range-first):not(.#{variables.$prefix}range-last):not([disabled='true']) {
       position: sticky;
       top: 0;
       bottom: 0;
@@ -881,10 +883,10 @@
   }
 }
 
-.#{$prefix}is-multiple {
-  .#{$prefix}simple-content {
-    .#{$prefix}column {
-      .#{$prefix}selected {
+.#{variables.$prefix}is-multiple {
+  .#{variables.$prefix}simple-content {
+    .#{variables.$prefix}column {
+      .#{variables.$prefix}selected {
         position: static !important;
       }
     }
@@ -892,46 +894,46 @@
 }
 
 
-.#{$prefix}dir-ltr {
-  .#{$prefix}content,
-  .#{$prefix}actions,
-  .#{$prefix}addon-list-content {
+.#{variables.$prefix}dir-ltr {
+  .#{variables.$prefix}content,
+  .#{variables.$prefix}actions,
+  .#{variables.$prefix}addon-list-content {
     direction: ltr;
   }
 
-  .#{$prefix}content,
-  .#{$prefix}actions {
+  .#{variables.$prefix}content,
+  .#{variables.$prefix}actions {
     text-align: left;
     font-family: sans-serif;
   }
 
-  .#{$prefix}month-label {
+  .#{variables.$prefix}month-label {
     font-size: 90%
   }
 
-  .#{$prefix}addon-list-item,
-  .#{$prefix}weekday,
-  .#{$prefix}day {
+  .#{variables.$prefix}addon-list-item,
+  .#{variables.$prefix}weekday,
+  .#{variables.$prefix}day {
     float: left;
   }
 
-  .#{$prefix}locales {
+  .#{variables.$prefix}locales {
     left: auto;
     right: 14px;
   }
 }
 
-.#{$prefix}dir-rtl {
-  .#{$prefix}next,
-  .#{$prefix}prev {
+.#{variables.$prefix}dir-rtl {
+  .#{variables.$prefix}next,
+  .#{variables.$prefix}prev {
     transform: rotateY(180deg);
   }
 
-  .#{$prefix}next {
+  .#{variables.$prefix}next {
     float: left
   }
 
-  .#{$prefix}prev {
+  .#{variables.$prefix}prev {
     float: right
   }
 }

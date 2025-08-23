@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import Btn from '../Btn'
-import Arrow from '../Arrow'
+import Btn from '../Btn.vue'
+import Arrow from '../Arrow.vue'
 import { modelMixin } from '../../modules/mixins'
 
 export default {
