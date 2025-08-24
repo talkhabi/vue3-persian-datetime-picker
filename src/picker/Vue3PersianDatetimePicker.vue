@@ -446,12 +446,12 @@
 
 <script>
 import './assets/scss/style.scss'
-import Arrow from './components/Arrow'
-import TimeIcon from './components/TimeIcon'
-import CalendarIcon from './components/CalendarIcon'
-import LocaleChange from './components/LocaleChange'
-import TimeSection from './components/time/TimeSection'
-import SimpleMode from './components/simple/SimpleMode'
+import Arrow from './components/Arrow.vue'
+import TimeIcon from './components/TimeIcon.vue'
+import CalendarIcon from './components/CalendarIcon.vue'
+import LocaleChange from './components/LocaleChange.vue'
+import TimeSection from './components/time/TimeSection.vue'
+import SimpleMode from './components/simple/SimpleMode.vue'
 
 import CoreModule from './modules/core'
 import { popupRouteChanger } from './modules/mixins'
@@ -459,7 +459,7 @@ import { cloneDates, extend, isSameDay } from './modules/utils'
 import { addLiveEvent } from './modules/utils'
 
 export default {
-  name: 'Vue3PersianDatetimePicker',
+  name: 'ViteVue3PersianDatetimePicker',
   components: {
     SimpleMode,
     TimeSection,

@@ -126,8 +126,8 @@
 </template>
 
 <script>
-import LocaleChange from './../LocaleChange'
-import SimpleModeColumn from './SimpleModeColumn'
+import LocaleChange from './../LocaleChange.vue'
+import SimpleModeColumn from './SimpleModeColumn.vue'
 
 export default {
   name: 'SimpleMode',

@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import Vue3PersianDatetimePicker from '@/picker/Vue3PersianDatetimePicker'
+import ViteVue3PersianDatetimePicker from '@/picker/Vue3PersianDatetimePicker.vue'
 export default {
   name: 'Home',
   components: {
-    DatePicker: Vue3PersianDatetimePicker
+    DatePicker: ViteVue3PersianDatetimePicker
   },
   data() {
     return {
       date: '',
       time: '',
-      pageTitle: process.env.VUE_APP_TITLE
+      pageTitle: import.meta.env.VUE_APP_TITLE
     }
   }
 }

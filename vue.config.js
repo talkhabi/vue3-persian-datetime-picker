@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = {
-  publicPath: process.env.VUE_APP_PUBLIC_PATH,
+  publicPath: import.meta.env.VUE_APP_PUBLIC_PATH,
   lintOnSave: false,
   filenameHashing: true,
   productionSourceMap: false,
@@ -11,7 +11,7 @@ module.exports = {
   },
 
   css: {
-    sourceMap: process.env.NODE_ENV !== 'production',
+    sourceMap: import.meta.env.NODE_ENV !== 'production',
     extract: false
   }
 }
